@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-transition {
+  @apply transition-all duration-300 ease-in-out cursor-pointer
+}
+
+.small-btn {
+  @apply rounded-lg px-[1rem] cursor-pointer hover:bg-[#CFD7FF] transition-all duration-300 text-[#4661E6] text-[.84rem] capitalize bg-[#F2F4FF] font-[600] py-1
+}
+
+.card-title-text {
+  @apply text-[#3A4374] text-[.8125rem] font-bold sm:text-[18px]
+}
+
+.card-title-desc {
+  @apply text-[#647196] text-[.8125rem] sm:text-[1rem]
+}
