@@ -1,6 +1,6 @@
 import upArrow from '../assets/shared/icon-arrow-up.svg'
 import commentIcon from '../assets/shared/icon-comments.svg'
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../types/hooks';
 import {incUpVote} from '../features/productsRequestSlice'
 import styled from 'styled-components';
@@ -44,13 +44,18 @@ const Suggestion = ({
     upVoteRef.current = upvotes
   }, [])
 
-  useEffect(() => {
+   const upvoteChange = useCallback<() => void>(():void => {
     if(upvotes - 1 === upVoteRef.current) {
       setIsActive(true)
     } else {
       setIsActive(false)
     }
-    
+  },[upvotes, upVoteRef])
+
+
+
+  useEffect(() => {
+   upvoteChange() 
   },[upVoteRef, upvotes])
 
 
