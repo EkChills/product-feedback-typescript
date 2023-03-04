@@ -16,7 +16,7 @@ const RoadmapNav = (): JSX.Element => {
       <Wrapper className="flex items-center sm:hidden justify-between p-[1.5rem] back-drop ">
         <div className="flex flex-col space-y-1 text-white">
           <h5 className="capitalize text-[.94rem] font-bold">
-            frontend mentors
+            frontend mentor
           </h5>
           <h5 className="capitalize text-[.815rem] font-[500]">
             frontend mentor
