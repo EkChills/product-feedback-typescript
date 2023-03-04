@@ -66,7 +66,7 @@ const Suggestion = ({
       </div>
     <h2 className="card-title-text sm:hidden">{title}</h2>
     <div className='sm:flex sm:items-center sm:space-x-[2.5rem]'>
-    <button onClick={increaseVote} className={`rounded-lg px-[1rem] cursor-pointer hover:bg-[#CFD7FF] active:bg-[#4661E6] transition-all duration-300 text-[#4661E6] text-[.84rem] capitalize ${isActive? 'bg-[#4661E6]' : 'bg-[#F2F4FE]'} font-[600] py-1 hidden sm:flex items-center space-x-[.6rem] sm:flex-col sm:space-x-0 sm:space-y-[.5rem] sm:p-[1rem] sm:rounded-xl`}>
+    <button onClick={increaseVote} className={`rounded-lg px-[1rem] cursor-pointer  active:bg-[#4661E6] transition-all duration-300 text-[#4661E6] text-[.84rem] capitalize ${isActive? 'bg-[#4661E6]' : 'bg-[#F2F4FE] hover:bg-[#CFD7FF]'} font-[600] py-1 hidden sm:flex items-center space-x-[.6rem] sm:flex-col sm:space-x-0 sm:space-y-[.5rem] sm:p-[1rem] sm:rounded-xl`}>
     <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 6l4-4 4 4"  className={`${isActive ? 'upvoted-svg' :'downvoted-svg'}`} stroke-width="2" fill="none" fill-rule="evenodd"/></svg>
         <span className={` ${isActive ?'text-[#ffffff]' : 'text-[#3A4374]' } text-[.8125rem] font-bold sm:text-[18px] `}>{upvotes}</span>
       </button>
@@ -80,7 +80,7 @@ const Suggestion = ({
     </div>
    
     <div className="flex sm:hidden  items-center justify-between">
-      <button onClick={increaseVote} className={`rounded-lg px-[1rem] cursor-pointer hover:bg-[#CFD7FF] transition-all duration-300 text-[#4661E6] text-[.84rem] capitalize ${isActive? 'bg-[#4661E6]' : 'bg-[#F2F4FE]'} font-[600] py-1 flex items-center space-x-[.6rem] sm:flex-col sm:space-x-0 sm:space-y-[.5rem] sm:p-[1rem] sm:rounded-xl`}>
+      <button onClick={increaseVote} className={`rounded-lg px-[1rem] cursor-pointer transition-all duration-300 text-[#4661E6] text-[.84rem] capitalize ${isActive? 'bg-[#4661E6]' : 'bg-[#F2F4FE] hover:bg-[#CFD7FF] '} font-[600] py-1 flex items-center space-x-[.6rem] sm:flex-col sm:space-x-0 sm:space-y-[.5rem] sm:p-[1rem] sm:rounded-xl`}>
       <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 6l4-4 4 4"  className={`${isActive ? 'upvoted-svg' :'downvoted-svg'}`} stroke-width="2" fill="none" fill-rule="evenodd"/></svg>
         <span className={` ${isActive ?'text-[#ffffff]' : 'text-[#3A4374]' } text-[.8125rem] font-bold sm:text-[18px] `}>{upvotes}</span>
       </button>
