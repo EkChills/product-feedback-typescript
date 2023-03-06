@@ -71,6 +71,10 @@ interface UpVote {
   };
 }
 
+interface CommentAction {
+  payload:number
+}
+
 const productRequestSlice = createSlice({
   name: "productRequests",
   initialState,
@@ -90,6 +94,12 @@ const productRequestSlice = createSlice({
       }
       foundSuggestion!.upvotes += 1;
     },
+    addComment:(state:Init, {payload}:CommentAction) => {
+      const foundSuggestion = state.suggestions.find((suggestion) => {
+        return suggestion.id === payload
+      })
+      foundSuggestion?.comments?.push()
+    }
   },
 });
 export const { changeSort, incUpVote } = productRequestSlice.actions;
