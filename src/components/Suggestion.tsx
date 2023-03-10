@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 
 
 interface Comment {
-  id: number;
-  content: string;
+  id: number | string;
+  content: string | undefined;
   user: {
     image: string;
     name: string;
@@ -19,7 +19,7 @@ interface Comment {
 }
 
 interface Props  {
-  id: number;
+  id: number | string;
   title: string;
   category: string;
   upvotes: number;

@@ -67,12 +67,46 @@ interface SortAction {
 interface UpVote {
   payload: {
     ref: number | null ;
-    id: number;
+    id: number | string;
   };
 }
 
+interface User {
+  image:string;
+  name:string;
+  username:string
+}
+
+export interface Replies {
+  content:string;
+  replyingTo:string;
+  user:User;
+}
+
+
+
+interface Comment {
+  id:number | string;
+  content:string;
+  user:User;
+  replies?:Replies[]
+}
+
+
 interface CommentAction {
-  payload:number
+  payload:{
+    id:number | string,
+    user:Comment
+  }
+}
+
+type ReplyAction = {
+  payload:{
+    mainId:number | string,
+    commentId: number | string
+    reply:Replies,
+    condition:string;
+  }
 }
 
 const productRequestSlice = createSlice({
@@ -94,13 +128,37 @@ const productRequestSlice = createSlice({
       }
       foundSuggestion!.upvotes += 1;
     },
-    addComment:(state:Init, {payload}:CommentAction) => {
+    addComment:(state:Init, {payload:{id, user}}:CommentAction) => {
       const foundSuggestion = state.suggestions.find((suggestion) => {
-        return suggestion.id === payload
+        return suggestion.id == id
       })
-      foundSuggestion?.comments?.push()
+      console.log(foundSuggestion);
+      
+      if(foundSuggestion) {
+        if(foundSuggestion.comments) {
+          foundSuggestion.comments = [...foundSuggestion.comments as Comment[], user]
+          return
+        }
+        foundSuggestion['comments'] = [user]
+      }
+    },
+    addReply:(state:Init, {payload:{mainId,commentId, reply, condition}}:ReplyAction) => {
+      if(condition === 'add-reply') {
+        
+      }
+      const foundSuggestion = state.suggestions.find((suggestion) => {
+        return suggestion.id == mainId
+      })
+      const foundComment = foundSuggestion?.comments?.find((comment) => comment.id == commentId)
+      if(foundComment) {
+        if(foundComment.replies) {
+          foundComment.replies = [...foundComment.replies as Replies[], reply] 
+          return
+        }
+        foundComment['replies'] = [reply]
+      }
     }
   },
 });
-export const { changeSort, incUpVote } = productRequestSlice.actions;
+export const { changeSort, incUpVote, addComment, addReply } = productRequestSlice.actions;
 export default productRequestSlice.reducer;

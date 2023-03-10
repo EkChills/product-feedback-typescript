@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import EditFeedback from "./pages/EditFeedback"
 import FeedbackDetail from "./pages/FeedbackDetail"
 import NewFeedback from "./pages/NewFeedback"
@@ -15,6 +17,7 @@ const App = () => {
         <Route path="/edit-feedback/:id" element={<EditFeedback />} />
         <Route path="road-map" element={<Roadmap />} />
       </Routes>
+      <ToastContainer position="top-center" />
     </BrowserRouter>
   )
 }

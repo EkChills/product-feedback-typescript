@@ -27,8 +27,8 @@ export enum Category {
 }
 
 export interface Comment {
-  id:       number;
-  content:  string;
+  id:       number | string;
+  content:  string | undefined;
   user:     User;
   replies?: Reply[];
 }
