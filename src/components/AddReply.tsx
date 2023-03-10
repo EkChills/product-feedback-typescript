@@ -1,5 +1,5 @@
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react"
-import MoonLoader from "react-spinners/MoonLoader"
+import { PulseLoader } from "react-spinners"
 import ActionButton from "./ui/ActionButton"
 import { useAppDispatch, useAppSelector } from "../types/hooks"
 import { addReply } from "../features/productsRequestSlice"
@@ -58,6 +58,7 @@ const AddReply = ({commentId, mainId, setShowReply, setShowInput, condition, nes
         }}}))
       }
       setReply('')
+      toast.success('reply added')
       setShowReply!(false)
       return
     }
@@ -84,7 +85,7 @@ const AddReply = ({commentId, mainId, setShowReply, setShowInput, condition, nes
   return (
     <form onSubmit={onSubmitHandler} className="flex items-center  bg-[#FFFFFF]  space-x-4 rounded-lg">
       <input ref={inputRef} onChange={handleChange} value={reply} type="text" placeholder="Type your reply here" className="input mt-8 text-[#3A4374] input-bordered input-primary bg-[#F7F8FD] h-[5rem] w-full" />
-        {isLoading ? <MoonLoader color="#AD1FEA" size={27}  /> : <ActionButton  className="bg-[#AD1FEA]">
+        {isLoading ? <PulseLoader color="#AD1FEA" size={5}  /> : <ActionButton  className="bg-[#AD1FEA]">
           post reply
         </ActionButton>}
     </form>

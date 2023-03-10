@@ -3,8 +3,8 @@ import ActionButton from "./ui/ActionButton"
 import { addComment } from "../features/productsRequestSlice"
 import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector, useAppDispatch } from "../types/hooks"
-import { MoonLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { BounceLoader } from "react-spinners";
 
 interface Props {
   id:number | string;
@@ -55,7 +55,7 @@ const AddComment = ({id}:Props):JSX.Element => {
       <input onChange={handleChange} value={comment} type="text" placeholder="Type your comment here" className="input mt-8 text-[#3A4374] input-bordered input-primary bg-[#F7F8FD] h-[5rem] w-full" />
       <div className="flex items-center justify-between mt-[1rem]">
         <span className="text-[#647196] text-[.8125rem] sm:text-[.938rem] font-[400]">250 Characters left</span>
-        {isLoading ? <MoonLoader  color="#AD1FEA" size={27} /> :
+        {isLoading ? <BounceLoader  color="#AD1FEA" size={27} /> :
         <ActionButton  className="bg-[#AD1FEA]">
           post comment
         </ActionButton>}
