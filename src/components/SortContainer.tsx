@@ -6,7 +6,7 @@ const SortContainer = (): JSX.Element => {
   const { sortOptions, sortOption:sortValue } = useAppSelector((store) => store.productRequest);
   const dispatch = useAppDispatch()
   return (
-    <div className="w-[15.938rem] bg-[#FFFFFF] absolute shadow-lg top-[4.6rem] left-0 rounded-md flex flex-col  py-[.75rem]">
+    <div className="w-[15.938rem] bg-[#FFFFFF] absolute shadow-lg top-[4.6rem] left-0 rounded-md flex flex-col  py-[0]">
       {sortOptions.map((option) => {
         const {sortOption} = option
         return (

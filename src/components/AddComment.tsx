@@ -56,7 +56,7 @@ const AddComment = ({id}:Props):JSX.Element => {
       <div className="flex items-center justify-between mt-[1rem]">
         <span className="text-[#647196] text-[.8125rem] sm:text-[.938rem] font-[400]">250 Characters left</span>
         {isLoading ? <BounceLoader  color="#AD1FEA" size={27} /> :
-        <ActionButton  className="bg-[#AD1FEA]">
+        <ActionButton defVal={true}  className="bg-[#AD1FEA]">
           post comment
         </ActionButton>}
       </div>

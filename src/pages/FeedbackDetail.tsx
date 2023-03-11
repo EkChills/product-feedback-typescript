@@ -25,12 +25,12 @@ const FeedbackDetail = () => {
               go back
             </p>
           </button>
-          <ActionButton id="edit button" className="capitalize bg-[#4661E6] hover:opacity-60 transition-all ease-out">
+          <ActionButton defVal={true} id="edit button" className="capitalize bg-[#4661E6] hover:opacity-60 transition-all ease-out">
             edit feedback
           </ActionButton>
         </div>
         <Suggestion  {...singleSuggestion}  />
-        <div className="flex flex-col bg-[#FFFFFF] p-[1.5rem] rounded-lg">
+        <div className="flex flex-col bg-[#FFFFFF] p-[1.5rem] sm:p-[2rem] rounded-lg">
           <h2 className="text-[#3A4374] font-bold text-[1.125rem] capitalize">{singleSuggestion?.comments?.length} comments</h2>
           {singleSuggestion.comments && <div className="">
                 {singleSuggestion.comments.map((comment) => {

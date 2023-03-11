@@ -6,6 +6,7 @@ import { openSort, closeSort } from "../features/userSlice";
 import AddFeedbackButton from "./ui/AddFeedbackButton";
 import SortContainer from "./SortContainer";
 import useClickOutside from "../utils/useClickOutside";
+import { Link } from "react-router-dom";
 
 
 const Navbar = (): JSX.Element => {
@@ -51,9 +52,9 @@ const Navbar = (): JSX.Element => {
         </div>
       </div>
       <div>
-        <AddFeedbackButton>
+        <Link to={'new-feedback'}><AddFeedbackButton>
           add feedback
-        </AddFeedbackButton>
+        </AddFeedbackButton></Link>
       </div>
     </div>
   );
