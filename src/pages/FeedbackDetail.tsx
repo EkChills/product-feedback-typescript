@@ -34,7 +34,7 @@ const FeedbackDetail = () => {
           <h2 className="text-[#3A4374] font-bold text-[1.125rem] capitalize">{singleSuggestion?.comments?.length} comments</h2>
           {singleSuggestion.comments && <div className="">
                 {singleSuggestion.comments.map((comment) => {
-                  return <SingleComment id={comment.id} content={comment.content} user={comment.user} replies={comment.replies}  mainId={id} />
+                  return <SingleComment key={comment.id} id={comment.id} content={comment.content} user={comment.user} replies={comment.replies}  mainId={id} />
                 })}
             </div>}
         </div>
