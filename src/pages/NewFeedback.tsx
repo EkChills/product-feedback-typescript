@@ -4,9 +4,13 @@ import newFeedbackIcon from "../assets/shared/icon-new-feedback.svg";
 import FeedbackInput from "../components/FeedbackInput";
 import { useState } from "react";
 import FeedbackSelect from "../components/FeedbackSelect";
-import { Category } from "../types/storeTypes";
 import { useForm } from "react-hook-form";
 import ActionButton from "../components/ui/ActionButton";
+import { addFeedback } from "../features/productsRequestSlice";
+import { useAppDispatch } from "../types/hooks";
+import {v4 as uuidv4} from 'uuid'
+import { toast } from "react-toastify";
+import { PuffLoader, RingLoader, ScaleLoader, SquareLoader } from "react-spinners";
 
 
 
@@ -18,6 +22,7 @@ type FeedbackInputs = {
 };
 
 const NewFeedback = () => {
+  const [feedbackLoading, setFeedbackLoading] = useState<boolean>(false)
   const [feedbackInputs, setFeedbackInputs] = useState<FeedbackInputs>({
     title: "",
     category: "UI",
@@ -30,10 +35,31 @@ const NewFeedback = () => {
     const {name, value} = e.target
     setFeedbackInputs((prevInputs)  => ({...prevInputs, [name] : value}))    
   }
+  const dispatch = useAppDispatch()
   console.log(feedbackInputs);
 
-  const handleSubmitHandler = () => {
-    console.log('yo') 
+  const handleSubmitHandler = async() => {
+    setFeedbackLoading(true)
+    try {
+      await new Promise((resolve, reject) => {
+        setTimeout(() => resolve('resolved'), 2000)
+      })
+      dispatch(addFeedback({
+        id:uuidv4(),
+        title:feedbackInputs.title,
+        category:feedbackInputs.category,
+        upvotes:0,
+        status:'suggestion',
+        description:feedbackInputs.description
+      }))
+      toast.success('Feedback sent')
+      navigate('/')
+      setFeedbackLoading(false)
+    } catch (error) {
+      console.log('error');
+      setFeedbackLoading(false)
+    }
+   
   }
   
   return (
@@ -91,10 +117,11 @@ const NewFeedback = () => {
           {errors.title && <label htmlFor="title" className={`${errors.title ? 'visible' : 'invisible'}font-[400] text-left text-[#D73737] text-[.8125rem] sm:text-[.875rem]`}>Can't be empty</label>}
           </div>
         </div>
-        <div className="flex w-[100%] mt-[2.5rem] flex-col space-y-[1rem] md:flex-row-reverse md:items-center md:space-y-0 md:justify-start md:gap-4">
+        <div className="flex w-[100%] mt-[2.5rem] flex-col space-y-[1rem] md:flex-row-reverse md:items-center md:space-y-0 md:justify-start md:gap-4">{
+          feedbackLoading ? <PuffLoader color="#AD1FEA" size={27} /> :
           <ActionButton type="submit" className="bg-[#AD1FEA] w-[100%] md:w-[9rem] hover:opacity-60 transition-opacity" >
             add feedback
-          </ActionButton>
+          </ActionButton>}
           <ActionButton className="bg-[#3A4374] w-[100%] md:w-[9rem] hover:opacity-60 transition-opacity" >
             cancel
           </ActionButton>

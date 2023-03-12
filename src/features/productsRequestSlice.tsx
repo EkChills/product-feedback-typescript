@@ -2,6 +2,7 @@ import data from "../data.json";
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductRequest } from "../types/storeTypes";
 import { RefObject } from "react";
+import { getLocalStorage } from "../utils/localStorage";
 
 const allRequests: ProductRequest[] | any = data.productRequests;
 const filteredSuggestions: ProductRequest[] | any = data.productRequests.filter(
@@ -40,7 +41,7 @@ interface Init {
 
 const initialState: Init = {
   allRequests: allRequests,
-  suggestions: filteredSuggestions,
+  suggestions: getLocalStorage('suggestions', filteredSuggestions),
   planned: filteredPlanned,
   inProgress: filteredProgress,
   live: filteredLive,
@@ -109,6 +110,10 @@ type ReplyAction = {
   }
 }
 
+interface AddFeedbackAction {
+  payload:ProductRequest
+}
+
 const productRequestSlice = createSlice({
   name: "productRequests",
   initialState,
@@ -157,8 +162,11 @@ const productRequestSlice = createSlice({
         }
         foundComment['replies'] = [reply]
       }
+    },
+    addFeedback:(state:Init, {payload}:AddFeedbackAction):void => {
+      state.suggestions = [...state.suggestions as ProductRequest[], payload ]
     }
   },
 });
-export const { changeSort, incUpVote, addComment, addReply } = productRequestSlice.actions;
+export const { changeSort, incUpVote, addComment, addReply, addFeedback } = productRequestSlice.actions;
 export default productRequestSlice.reducer;

@@ -6,9 +6,14 @@ import styled from "styled-components";
 import SuggestionsList from "../components/SuggestionsList";
 import EmptySuggestion from "../components/EmptySuggestion";
 import { useAppSelector } from "../types/hooks";
+import { useEffect } from "react";
 
 const Suggestions = () => {
   const {suggestions} = useAppSelector((store) => store.productRequest)
+  useEffect(() => {
+    localStorage.setItem('suggestions', JSON.stringify(suggestions))
+  }, [suggestions])
+  
   return (
     <div className="  bg-[#F7F8FD] min-h-[100vh] flex flex-col sm:px-[2.44rem] lg:pt-[5.875rem] lg:w-[100vw] lg:px-[4rem]  lg:space-x-[1.95rem] lg:items-start lg:flex-row ">
       <RoadmapNav />

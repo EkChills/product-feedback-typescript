@@ -11,9 +11,9 @@ export interface User {
 }
 
 export interface ProductRequest {
-  id:          number;
+  id:          number | string;
   title:       string;
-  category:    Category;
+  category:    Category | string;
   upvotes:     number;
   status:      string;
   description: string;
