@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import illustration from '../assets/suggestions/illustration-empty.svg'
 import AddFeedbackButton from './ui/AddFeedbackButton'
 
@@ -11,9 +12,9 @@ const EmptySuggestion = () => {
             <h3 className='text-[#3A4374]  text-[1.125rem] font-bold sm:text-[1.5rem]'>there is no feedback yet</h3>
             <p className='card-title-desc'>Got a suggestion? Found a bug that needs to be squashed? <br/> We love hearing about new ideas to improve our app.</p>
           </div>
-          <AddFeedbackButton>
+          <Link to={'new-feedback'}><AddFeedbackButton>
             add feedback
-          </AddFeedbackButton>
+          </AddFeedbackButton></Link>
         </div>
       </div>
     </div>

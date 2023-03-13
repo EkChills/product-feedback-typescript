@@ -1,4 +1,4 @@
-import {  useNavigate, useParams } from "react-router-dom";
+import {  Link, useNavigate, useParams } from "react-router-dom";
 import leftArrow from "../assets/shared/icon-arrow-left.svg";
 import AddComment from "../components/AddComment";
 import SingleComment from "../components/SingleComment";
@@ -25,9 +25,9 @@ const FeedbackDetail = () => {
               go back
             </p>
           </button>
-          <ActionButton defVal={true} id="edit button" className="capitalize bg-[#4661E6] hover:opacity-60 transition-all ease-out">
+          <Link to={`/edit-feedback/${id}`}><ActionButton defVal={true} id="edit button" className="capitalize bg-[#4661E6] hover:opacity-60 transition-all ease-out">
             edit feedback
-          </ActionButton>
+          </ActionButton></Link>
         </div>
         <Suggestion  {...singleSuggestion}  />
         <div className="flex flex-col bg-[#FFFFFF] p-[1.5rem] sm:p-[2rem] rounded-lg">

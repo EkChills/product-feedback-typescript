@@ -52,7 +52,7 @@ const AddComment = ({id}:Props):JSX.Element => {
   return (
     <form onSubmit={postComment} className="flex flex-col bg-[#FFFFFF] p-[1.5rem]  rounded-lg">
       <h2 className="text-[#3A4374] font-bold text-[1.125rem] capitalize">add comments</h2>
-      <input onChange={handleChange} value={comment} type="text" placeholder="Type your comment here" className="input mt-8 text-[#3A4374] input-bordered input-primary bg-[#F7F8FD] h-[5rem] w-full" />
+      <input onChange={handleChange} value={comment} type="text" placeholder="Type your comment here" className="input mt-8 text-[#3A4374] input-bordered input-primary bg-[#F7F8FD] h-[5rem] w-full max-w-full" />
       <div className="flex items-center justify-between mt-[1rem]">
         <span className="text-[#647196] text-[.8125rem] sm:text-[.938rem] font-[400]">250 Characters left</span>
         {isLoading ? <BounceLoader  color="#AD1FEA" size={27} /> :

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ProductRequest } from "../types/storeTypes";
 import { RefObject } from "react";
 import { getLocalStorage } from "../utils/localStorage";
+import Suggestion from "../components/Suggestion";
 
 const allRequests: ProductRequest[] | any = data.productRequests;
 const filteredSuggestions: ProductRequest[] | any = data.productRequests.filter(
@@ -165,8 +166,17 @@ const productRequestSlice = createSlice({
     },
     addFeedback:(state:Init, {payload}:AddFeedbackAction):void => {
       state.suggestions = [...state.suggestions as ProductRequest[], payload ]
+    },
+    editFeedback:(state:Init, {payload}:{payload:{id:string, suggestion:ProductRequest}}) => {
+      const {suggestions} = state
+      const index = suggestions.indexOf(state.suggestions.find((item) => item.id == payload.id)!)
+      console.log(index);
+      state.suggestions.splice(index,1,payload.suggestion)
+    },
+    deleteFeedback:(state:Init, {payload}:{payload:string}) => {
+      state.suggestions = state.suggestions.filter((Suggestion) => Suggestion.id != payload)
     }
   },
 });
-export const { changeSort, incUpVote, addComment, addReply, addFeedback } = productRequestSlice.actions;
+export const { changeSort, incUpVote, addComment, addReply, addFeedback,editFeedback, deleteFeedback } = productRequestSlice.actions;
 export default productRequestSlice.reducer;
