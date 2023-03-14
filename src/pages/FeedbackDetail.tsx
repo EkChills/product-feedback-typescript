@@ -7,11 +7,11 @@ import ActionButton from "../components/ui/ActionButton";
 import { useAppSelector } from "../types/hooks";
 
 const FeedbackDetail = () => {
-  const {suggestions} = useAppSelector((store) => store.productRequest)
+  const {suggestions, planned, inProgress, live} = useAppSelector((store) => store.productRequest)
   const { id } = useParams<{ id?: number | string | any }>();
   const navigate = useNavigate()
-  
-  const singleSuggestion = suggestions.find((suggestion) => suggestion.id == id)!
+  const allFeedbacks = [...suggestions,...planned, ...inProgress, ...live]
+  const singleSuggestion = allFeedbacks.find((suggestion) => suggestion.id == id)!
   
 
 

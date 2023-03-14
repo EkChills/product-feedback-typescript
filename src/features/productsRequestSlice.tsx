@@ -138,6 +138,15 @@ const productRequestSlice = createSlice({
       const foundSuggestion = state.suggestions.find((suggestion) => {
         return suggestion.id == id
       })
+      const foundPlanned = state.planned.find((suggestion) => {
+        return suggestion.id == id
+      })
+      const foundProgress = state.inProgress.find((suggestion) => {
+        return suggestion.id == id
+      })
+      const foundLive = state.live.find((suggestion) => {
+        return suggestion.id == id
+      })
       console.log(foundSuggestion);
       
       if(foundSuggestion) {
@@ -146,6 +155,31 @@ const productRequestSlice = createSlice({
           return
         }
         foundSuggestion['comments'] = [user]
+        return
+      }
+      if(foundPlanned) {
+        if(foundPlanned.comments) {
+          foundPlanned.comments = [...foundPlanned.comments as Comment[], user]
+          return
+        }
+        foundPlanned['comments'] = [user]
+        return
+      }
+      if(foundProgress) {
+        if(foundProgress.comments) {
+          foundProgress.comments = [...foundProgress.comments as Comment[], user]
+          return
+        }
+        foundProgress['comments'] = [user]
+        return
+      }
+      if(foundLive) {
+        if(foundLive.comments) {
+          foundLive.comments = [...foundLive.comments as Comment[], user]
+          return
+        }
+        foundLive['comments'] = [user]
+        return
       }
     },
     addReply:(state:Init, {payload:{mainId,commentId, reply, condition}}:ReplyAction) => {

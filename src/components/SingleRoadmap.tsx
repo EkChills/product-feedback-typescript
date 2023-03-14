@@ -26,10 +26,9 @@ interface Props  {
   status: string;
   description: string;
   comments?: Comment[];
-  tabName?:string;
 }
 
-const Suggestion = ({
+const SingleRoadmap = ({
   id,
   title,
   category,
@@ -37,7 +36,6 @@ const Suggestion = ({
   status,
   description,
   comments,
-  tabName,
 }: Props ): JSX.Element => {
   const [isActive, setIsActive] = useState<boolean>(false)
   const upVoteRef = useRef< number | null>(0)
@@ -67,17 +65,11 @@ const Suggestion = ({
   }
 
 
-  return <Wrapper tabName={tabName} className="flex flex-col bg-[#FFFFFF] p-[1.5rem] rounded-lg space-y-[1rem] sm:flex-row-reverse sm:justify-between">
+  return <Wrapper className="flex flex-col bg-[#FFFFFF] p-[1.5rem] rounded-lg space-y-[1rem] sm:flex-row-reverse sm:justify-between">
      <div className='hidden sm:flex items-center space-x-[.6rem]'>
         <img src={commentIcon} alt="comment" />
         <span className='card-title-text'>{comments?.length}</span>
       </div>
-      {/* planned goes here */}
-      {tabName && <div className='flex sm:hidden items-center space-x-[1rem]'>
-        <span className={`w-[.5rem] h-[.5rem]  rounded-full ${tabName == 'planned' ? 'bg-[#F49F85]' : tabName == 'in-progress' ? 'bg-[#AD1FEA]' : 'bg-[#62BCFA]'}`}>
-        </span>
-        <p className='text-[#647196] font-[400] capitalize'>{tabName}</p>
-        </div>}
     <Link to={`/suggestions/${id}`}><h2 className="card-title-text sm:hidden hover:text-[#4661E6] transition-all ease-in-out">{title}</h2></Link>
     <div className='sm:flex sm:items-center sm:space-x-[2.5rem]'>
     <button onClick={increaseVote} className={`rounded-lg px-[1rem] cursor-pointer  active:bg-[#4661E6] transition-all duration-300 text-[#4661E6] text-[.84rem] capitalize ${isActive? 'bg-[#4661E6]' : 'bg-[#F2F4FE] hover:bg-[#CFD7FF]'} font-[600] py-1 hidden sm:flex items-center space-x-[.6rem] sm:flex-col sm:space-x-0 sm:space-y-[.5rem] sm:p-[1rem] sm:rounded-xl`}>
@@ -85,12 +77,6 @@ const Suggestion = ({
         <span className={` ${isActive ?'text-[#ffffff]' : 'text-[#3A4374]' } text-[.8125rem] font-bold sm:text-[18px] `}>{upvotes}</span>
       </button>
     <div className="flex flex-col space-y-[.5rem] items-start">
-      {/* planned goes here */}
-      {tabName && <div className='hidden md:flex items-center space-x-[1rem]'>
-        <span className={`w-[.5rem] h-[.5rem] rounded-full ${tabName == 'planned' ? 'bg-[#F49F85]' : tabName == 'in-progress' ? 'bg-[#AD1FEA]' : 'bg-[#62BCFA]'}`}>
-        </span>
-        <p className='text-[#647196] font-[400] capitalize'>{tabName}</p>
-        </div>}
     <Link to={`/suggestions/${id}`}><h2 className="card-title-text hidden sm:block hover:text-[#4661E6] transition-all ease-in-out">{title}</h2></Link>
       <p className="card-title-desc">{description}</p>
       <button className="small-btn">
@@ -112,11 +98,7 @@ const Suggestion = ({
   </Wrapper>
 };
 
-interface StylesProps {
-  tabName:string | undefined;
-}
-
-const Wrapper = styled.div<StylesProps>`
+const Wrapper = styled.div`
   .downvoted-svg {
     stroke:#4661E6;
   }
@@ -124,8 +106,6 @@ const Wrapper = styled.div<StylesProps>`
   .upvoted-svg {
     stroke:#ffffff;
   }
-  border-top-color: ${props => props.tabName == 'planned' ? '#F49F85' : props.tabName == 'in-progress' ? '#AD1FEA' : props.tabName == 'live' ? '#62BCFA' : 'transparent'};
-  border-top-width: 6px;
 `
 
-export default Suggestion;
+export default SingleRoadmap;
