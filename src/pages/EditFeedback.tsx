@@ -6,7 +6,7 @@ import { useState } from "react";
 import FeedbackSelect from "../components/FeedbackSelect";
 import { useForm } from "react-hook-form";
 import ActionButton from "../components/ui/ActionButton";
-import { addFeedback, deleteFeedback, editFeedback } from "../features/productsRequestSlice";
+import { addFeedback, deleteFeedback, editFeedback, editFeedbackInProgress, editFeedbackLive, editFeedbackPlanned } from "../features/productsRequestSlice";
 import { useAppDispatch, useAppSelector } from "../types/hooks";
 import {v4 as uuidv4} from 'uuid'
 import { toast } from "react-toastify";
@@ -18,6 +18,8 @@ type FeedbackInputs = {
   title: string;
   category: string;
   description: string;
+  updateStatus:string;
+  statusOptions:string[];
   categoryOptions: string[];
 };
 
@@ -31,6 +33,8 @@ const EditFeedback = () => {
     title: singleSuggestion.title,
     category: singleSuggestion.category,
     description: singleSuggestion.description,
+    updateStatus:singleSuggestion.status,
+    statusOptions:['suggestion', 'planned', 'in-progress', 'live'],
     categoryOptions: ["Feature", "UI", "UX", "Enhancement", "Bug"],
   });
 
@@ -49,12 +53,51 @@ const EditFeedback = () => {
       await new Promise((resolve, reject) => {
         setTimeout(() => resolve('resolved'), 2000)
       })
+      if(feedbackInputs.updateStatus == 'planned') {
+        dispatch(editFeedbackPlanned({id:id!, suggestion:{
+          id:id!,
+          title:feedbackInputs.title,
+          category:feedbackInputs.category,
+          upvotes:singleSuggestion.upvotes,
+          status:feedbackInputs.updateStatus,
+          description:feedbackInputs.description
+        }}))
+        toast.success('Feedback Edited')
+      navigate('/')
+        return
+      }
+      if(feedbackInputs.updateStatus == 'live') {
+        dispatch(editFeedbackLive({id:id!, suggestion:{
+          id:id!,
+          title:feedbackInputs.title,
+          category:feedbackInputs.category,
+          upvotes:singleSuggestion.upvotes,
+          status:feedbackInputs.updateStatus,
+          description:feedbackInputs.description
+        }}))
+        toast.success('Feedback Edited')
+      navigate('/')
+        return
+      }
+      if(feedbackInputs.updateStatus == 'in-progress') {
+        dispatch(editFeedbackInProgress({id:id!, suggestion:{
+          id:id!,
+          title:feedbackInputs.title,
+          category:feedbackInputs.category,
+          upvotes:singleSuggestion.upvotes,
+          status:feedbackInputs.updateStatus,
+          description:feedbackInputs.description
+        }}))
+        toast.success('Feedback Edited')
+      navigate('/')
+        return
+      }
       dispatch(editFeedback({id:id!, suggestion:{
         id:id!,
         title:feedbackInputs.title,
         category:feedbackInputs.category,
         upvotes:singleSuggestion.upvotes,
-        status:'suggestion',
+        status:feedbackInputs.updateStatus,
         description:feedbackInputs.description
       }}))
       toast.success('Feedback Edited')
@@ -127,6 +170,14 @@ const EditFeedback = () => {
             value={feedbackInputs.category}
             change={handleChange}
             name="category"
+          />
+          <FeedbackSelect
+            titleText="update status"
+            descText="change feature state"
+            selectOptions={feedbackInputs.statusOptions}
+            value={feedbackInputs.updateStatus}
+            change={handleChange}
+            name="updateStatus"
           />
           <div>
           <FeedbackInput

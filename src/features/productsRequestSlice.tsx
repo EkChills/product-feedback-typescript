@@ -43,9 +43,9 @@ interface Init {
 const initialState: Init = {
   allRequests: allRequests,
   suggestions: getLocalStorage('suggestions', filteredSuggestions),
-  planned: filteredPlanned,
-  inProgress: filteredProgress,
-  live: filteredLive,
+  planned: getLocalStorage('planned', filteredPlanned),
+  inProgress: getLocalStorage('in-progress', filteredProgress),
+  live: getLocalStorage('live', filteredLive),
   filterOptions: [
     { id: 1, option: "all" },
     { id: 2, option: "ui" },
@@ -173,10 +173,28 @@ const productRequestSlice = createSlice({
       console.log(index);
       state.suggestions.splice(index,1,payload.suggestion)
     },
+    editFeedbackPlanned:(state:Init, {payload}:{payload:{id:string, suggestion:ProductRequest}}) => {
+      const {suggestions} = state
+      state.planned = [...state.planned, payload.suggestion]
+      const index = suggestions.indexOf(state.suggestions.find((item) => item.id == payload.id)!)
+      state.suggestions.splice(index,1)
+    },
+    editFeedbackInProgress:(state:Init, {payload}:{payload:{id:string, suggestion:ProductRequest}}) => {
+      const {suggestions} = state
+      state.inProgress = [...state.inProgress, payload.suggestion]
+      const index = suggestions.indexOf(state.suggestions.find((item) => item.id == payload.id)!)
+      state.suggestions.splice(index,1)
+    },
+    editFeedbackLive:(state:Init, {payload}:{payload:{id:string, suggestion:ProductRequest}}) => {
+      const {suggestions} = state
+      state.live = [...state.live, payload.suggestion]
+      const index = suggestions.indexOf(state.suggestions.find((item) => item.id == payload.id)!)
+      state.suggestions.splice(index,1)
+    },
     deleteFeedback:(state:Init, {payload}:{payload:string}) => {
       state.suggestions = state.suggestions.filter((Suggestion) => Suggestion.id != payload)
     }
   },
 });
-export const { changeSort, incUpVote, addComment, addReply, addFeedback,editFeedback, deleteFeedback } = productRequestSlice.actions;
+export const { changeSort, incUpVote, addComment, addReply, addFeedback,editFeedback, deleteFeedback, editFeedbackPlanned, editFeedbackInProgress,editFeedbackLive } = productRequestSlice.actions;
 export default productRequestSlice.reducer;

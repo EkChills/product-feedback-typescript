@@ -1,8 +1,15 @@
-import React from 'react'
+import NavbarRoadmap from "../components/NavbarRoadmap";
+import RoadmapPageLinks from "../components/RoadmapPageLinks";
+
 
 const Roadmap = () => {
   return (
-    <div>Roadmap</div>
+    <>
+       <NavbarRoadmap />
+       <div className=" bg-[#F7F8FD] min-h-[100vh] w-full">
+        <RoadmapPageLinks />
+       </div>
+    </>
   )
 }
 

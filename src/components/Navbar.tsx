@@ -28,7 +28,7 @@ const Navbar = (): JSX.Element => {
   //   () => navRef.current?.removeEventListener('click', () => {})
   // }, )
   return (
-    <div className="flex items-center justify-between px-[1.5rem] lg:w-[100%] lg:space-x-[1.5rem]  py-[14px] bg-[#373F68] md:rounded-md">
+    <nav className="flex items-center justify-between px-[1.5rem] lg:w-[100%] lg:space-x-[1.5rem]  py-[14px] bg-[#373F68] md:rounded-md">
       <div className="flex items-center sm:space-x-[2.375rem]">
         <div className="hidden sm:flex items-center sm:space-x-[1rem]">
           <svg
@@ -56,7 +56,7 @@ const Navbar = (): JSX.Element => {
           add feedback
         </AddFeedbackButton></Link>
       </div>
-    </div>
+    </nav>
   );
 };
 

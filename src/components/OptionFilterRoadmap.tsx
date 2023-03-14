@@ -1,4 +1,5 @@
 import { useAppSelector } from "../types/hooks"
+import { Link } from "react-router-dom"
 
 const OptionFilterRoadmap = () => {
   const {planned, inProgress, live} = useAppSelector(store => store.productRequest)
@@ -6,7 +7,7 @@ const OptionFilterRoadmap = () => {
     <div className='p-[1.5rem] bg-[#FFFFFF] flex flex-col space-y-[1.2rem] min-h-[11.125rem] rounded-lg'>
       <div className="flex items-center justify-between">
         <h5 className='text-[#3A4374] text-[1.125rem] font-bold capitalize'>roadmap</h5>
-        <span className='text-[#4661E6] hover:opacity-40 main-transition font-[600] text-[13px] underline capitalize'>view</span>
+        <Link to="road-map"><span className='text-[#4661E6] hover:opacity-40 main-transition font-[600] text-[13px] underline capitalize'>view</span></Link>
       </div>
       <div className="flex flex-col space-y-[.5rem]">
       <div className='flex items-center justify-between'>
