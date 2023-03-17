@@ -18,16 +18,46 @@ const AddReply = ({commentId, mainId, setShowReply, setShowInput, condition, nes
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const [reply, setReply] = useState<string>('')
-  const {suggestions} = useAppSelector((store) => store.productRequest)
+  const {suggestions, planned,inProgress,live} = useAppSelector((store) => store.productRequest)
   const {user} = useAppSelector((store) => store.user)
   function getUser() {
     const foundReply = suggestions.find((suggestion) => suggestion.id == mainId)?.comments?.find((foundReply) => foundReply.id === commentId)
-    if(condition === 'nested-reply') {
-      return foundReply?.replies![nestedId!]
-    }
-    if(condition === 'add-reply') {
-      return foundReply
-    }
+    const foundReplyPlanned = planned.find((suggestion) => suggestion.id == mainId)?.comments?.find((foundReply) => foundReply.id === commentId)
+    const foundReplyProgress = inProgress.find((suggestion) => suggestion.id == mainId)?.comments?.find((foundReply) => foundReply.id === commentId)
+    const foundReplyLive = live.find((suggestion) => suggestion.id == mainId)?.comments?.find((foundReply) => foundReply.id === commentId)
+    if(foundReply) {
+     if(condition === 'nested-reply') {
+        return foundReply?.replies![nestedId!]
+      }
+      if(condition === 'add-reply') {
+        return foundReply
+      }
+    } 
+    if(foundReplyPlanned) {
+      if(condition === 'nested-reply') {
+         return foundReplyPlanned?.replies![nestedId!]
+       }
+       if(condition === 'add-reply') {
+         return foundReplyPlanned
+       }
+     } 
+     if(foundReplyProgress) {
+      if(condition === 'nested-reply') {
+         return foundReplyProgress?.replies![nestedId!]
+       }
+       if(condition === 'add-reply') {
+         return foundReplyProgress
+       }
+     } 
+     if(foundReplyLive) {
+      if(condition === 'nested-reply') {
+         return foundReplyLive?.replies![nestedId!]
+       }
+       if(condition === 'add-reply') {
+         return foundReplyLive
+       }
+     } 
+      
   }
   // const foundReply = suggestions.find((suggestion) => suggestion.id == mainId)?.comments?.find((foundReply) => foundReply.id === commentId)
   // const foundNestedReply = foundReply?.replies![nestedId ? nestedId : ]

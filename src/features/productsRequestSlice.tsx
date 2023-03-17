@@ -189,13 +189,50 @@ const productRequestSlice = createSlice({
       const foundSuggestion = state.suggestions.find((suggestion) => {
         return suggestion.id == mainId
       })
+      const foundPlanned = state.planned.find((suggestion) => {
+        return suggestion.id == mainId
+      })
+      const foundProgress = state.inProgress.find((suggestion) => {
+        return suggestion.id == mainId
+      })
+      const foundLive = state.live.find((suggestion) => {
+        return suggestion.id == mainId
+      })
       const foundComment = foundSuggestion?.comments?.find((comment) => comment.id == commentId)
+      const foundCommentPlanned = foundPlanned?.comments?.find((comment) => comment.id == commentId)
+      const foundCommentProgress = foundProgress?.comments?.find((comment) => comment.id == commentId)
+      const foundCommentLive = foundLive?.comments?.find((comment) => comment.id == commentId)
       if(foundComment) {
         if(foundComment.replies) {
           foundComment.replies = [...foundComment.replies as Replies[], reply] 
           return
         }
         foundComment['replies'] = [reply]
+        return
+      }
+      if(foundCommentPlanned) {
+        if(foundCommentPlanned.replies) {
+          foundCommentPlanned.replies = [...foundCommentPlanned.replies as Replies[], reply] 
+          return
+        }
+        foundCommentPlanned['replies'] = [reply]
+        return
+      }
+      if(foundCommentProgress) {
+        if(foundCommentProgress.replies) {
+          foundCommentProgress.replies = [...foundCommentProgress.replies as Replies[], reply] 
+          return
+        }
+        foundCommentProgress['replies'] = [reply]
+        return
+      }
+      if(foundCommentLive) {
+        if(foundCommentLive.replies) {
+          foundCommentLive.replies = [...foundCommentLive.replies as Replies[], reply] 
+          return
+        }
+        foundCommentLive['replies'] = [reply]
+        return
       }
     },
     addFeedback:(state:Init, {payload}:AddFeedbackAction):void => {
@@ -209,26 +246,62 @@ const productRequestSlice = createSlice({
     },
     editFeedbackPlanned:(state:Init, {payload}:{payload:{id:string, suggestion:ProductRequest}}) => {
       const {suggestions} = state
+      const foundPlanned = state.planned.find((plan) => plan.id == payload.id)
+      if(foundPlanned) {
+        let index = state.planned.indexOf(foundPlanned)
+        state.planned.splice(index,1,payload.suggestion)
+        return
+      }
       state.planned = [...state.planned, payload.suggestion]
       const index = suggestions.indexOf(state.suggestions.find((item) => item.id == payload.id)!)
       state.suggestions.splice(index,1)
     },
     editFeedbackInProgress:(state:Init, {payload}:{payload:{id:string, suggestion:ProductRequest}}) => {
       const {suggestions} = state
+      const foundProgress = state.inProgress.find((plan) => plan.id == payload.id)
+      if(foundProgress) {
+        let index = state.inProgress.indexOf(foundProgress)
+        state.inProgress.splice(index,1,payload.suggestion)
+        return
+      }
       state.inProgress = [...state.inProgress, payload.suggestion]
       const index = suggestions.indexOf(state.suggestions.find((item) => item.id == payload.id)!)
       state.suggestions.splice(index,1)
     },
     editFeedbackLive:(state:Init, {payload}:{payload:{id:string, suggestion:ProductRequest}}) => {
       const {suggestions} = state
+      const foundLive = state.live.find((plan) => plan.id == payload.id)
+      if(foundLive) {
+        let index = state.live.indexOf(foundLive)
+        state.live.splice(index,1,payload.suggestion)
+        return
+      }
       state.live = [...state.live, payload.suggestion]
       const index = suggestions.indexOf(state.suggestions.find((item) => item.id == payload.id)!)
       state.suggestions.splice(index,1)
     },
     deleteFeedback:(state:Init, {payload}:{payload:string}) => {
       state.suggestions = state.suggestions.filter((Suggestion) => Suggestion.id != payload)
+    },
+    sortSuggestion:(state:Init, {payload}:{payload:string}) => {
+      if(payload === 'most upvotes') {
+        state.suggestions.sort((a, b) => b.upvotes - a.upvotes )
+        return
+      }
+      if(payload === 'least upvotes') {
+        state.suggestions.sort((a, b) => a.upvotes - b.upvotes )
+        return
+      }
+      if(payload == 'most comments') {
+        state.suggestions.sort((a, b) => b.comments?.length! - a.comments?.length!)
+        return
+      }
+      if(payload == 'least comments') {
+        state.suggestions.sort((a, b) => a.comments?.length! - b.comments?.length!)
+        return
+      }
     }
   },
-});
-export const { changeSort, incUpVote, addComment, addReply, addFeedback,editFeedback, deleteFeedback, editFeedbackPlanned, editFeedbackInProgress,editFeedbackLive } = productRequestSlice.actions;
+}); 
+export const { changeSort, incUpVote, addComment, addReply, addFeedback,editFeedback, deleteFeedback, editFeedbackPlanned, editFeedbackInProgress,editFeedbackLive, sortSuggestion } = productRequestSlice.actions;
 export default productRequestSlice.reducer;

@@ -27,13 +27,33 @@ const EditFeedback = () => {
   const [feedbackLoading, setFeedbackLoading] = useState<boolean>(false)
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false)
   const {id} = useParams<{id:string | undefined}>()
-  const {suggestions} = useAppSelector((store) => store.productRequest)
+  const {suggestions,planned,inProgress,live} = useAppSelector((store) => store.productRequest)
+  const getFeedbackInput = () => {
+    const singleSuggestion = suggestions.find((suggestion) => suggestion.id == id)
+    const singlePlanned = planned.find((suggestion) => suggestion.id == id)
+    const singleProgress = inProgress.find((suggestion) => suggestion.id == id)
+    const singleLive = live.find((suggestion) => suggestion.id == id)
+    if(singleSuggestion) {
+      return singleSuggestion
+    }
+    if(singlePlanned) {
+      return singlePlanned
+    }
+    
+    if(singleProgress) {
+      return singleProgress
+    }
+    
+    if(singleLive) {
+      return singleLive
+    }
+  }
   const singleSuggestion = suggestions.find((suggestion) => suggestion.id == id)!
   const [feedbackInputs, setFeedbackInputs] = useState<FeedbackInputs>({
-    title: singleSuggestion.title,
-    category: singleSuggestion.category,
-    description: singleSuggestion.description,
-    updateStatus:singleSuggestion.status,
+    title: getFeedbackInput()?.title!,
+    category: getFeedbackInput()?.category!,
+    description: getFeedbackInput()?.description!,
+    updateStatus:getFeedbackInput()?.status!,
     statusOptions:['suggestion', 'planned', 'in-progress', 'live'],
     categoryOptions: ["Feature", "UI", "UX", "Enhancement", "Bug"],
   });
@@ -58,7 +78,7 @@ const EditFeedback = () => {
           id:id!,
           title:feedbackInputs.title,
           category:feedbackInputs.category,
-          upvotes:singleSuggestion.upvotes,
+          upvotes:getFeedbackInput()?.upvotes!,
           status:feedbackInputs.updateStatus,
           description:feedbackInputs.description
         }}))
@@ -71,7 +91,7 @@ const EditFeedback = () => {
           id:id!,
           title:feedbackInputs.title,
           category:feedbackInputs.category,
-          upvotes:singleSuggestion.upvotes,
+          upvotes:getFeedbackInput()?.upvotes!,
           status:feedbackInputs.updateStatus,
           description:feedbackInputs.description
         }}))
@@ -84,7 +104,7 @@ const EditFeedback = () => {
           id:id!,
           title:feedbackInputs.title,
           category:feedbackInputs.category,
-          upvotes:singleSuggestion.upvotes,
+          upvotes:getFeedbackInput()?.upvotes!,
           status:feedbackInputs.updateStatus,
           description:feedbackInputs.description
         }}))
@@ -96,7 +116,7 @@ const EditFeedback = () => {
         id:id!,
         title:feedbackInputs.title,
         category:feedbackInputs.category,
-        upvotes:singleSuggestion.upvotes,
+        upvotes:getFeedbackInput()?.upvotes!,
         status:feedbackInputs.updateStatus,
         description:feedbackInputs.description
       }}))
@@ -104,7 +124,7 @@ const EditFeedback = () => {
       navigate('/')
       setFeedbackLoading(false)
     } catch (error) {
-      console.log('error');
+      console.log(error);
       setFeedbackLoading(false)
     }
    
@@ -148,7 +168,7 @@ const EditFeedback = () => {
           className="w-[2.5rem] absolute top-[-1rem] sm:w-[3.5rem]"
         />
         <h2 className="text-[#3A4374] capitalize mt-[2.75rem] font-bold text-[1.125rem] mb-[2.5rem] sm:text-[1.5rem]">
-          {`editing '${singleSuggestion.title}'`}
+          {`editing '${getFeedbackInput()?.title}'`}
         </h2>
         <div className="flex flex-col space-y-[1.5rem]">
           <div className="flex flex-col space-y-1">

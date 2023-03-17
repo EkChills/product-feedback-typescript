@@ -7,6 +7,7 @@ import AddFeedbackButton from "./ui/AddFeedbackButton";
 import SortContainer from "./SortContainer";
 import useClickOutside from "../utils/useClickOutside";
 import { Link } from "react-router-dom";
+import { sortSuggestion } from "../features/productsRequestSlice";
 
 
 const Navbar = (): JSX.Element => {
@@ -27,6 +28,9 @@ const Navbar = (): JSX.Element => {
     
   //   () => navRef.current?.removeEventListener('click', () => {})
   // }, )
+  useEffect(() => {
+    dispatch(sortSuggestion(sortOption))
+  }, [sortOption])
   return (
     <nav className="flex items-center justify-between px-[1.5rem] lg:w-[100%] lg:space-x-[1.5rem]  py-[14px] bg-[#373F68] md:rounded-md">
       <div className="flex items-center sm:space-x-[2.375rem]">
