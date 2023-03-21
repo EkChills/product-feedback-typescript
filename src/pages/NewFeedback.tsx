@@ -11,6 +11,7 @@ import { useAppDispatch } from "../types/hooks";
 import {v4 as uuidv4} from 'uuid'
 import { toast } from "react-toastify";
 import { PuffLoader, RingLoader, ScaleLoader, SquareLoader } from "react-spinners";
+import AnimatedLayout from "./AnimatedLayout";
 
 
 
@@ -63,6 +64,7 @@ const NewFeedback = () => {
   }
   
   return (
+    <AnimatedLayout>
     <form onSubmit={handleSubmit(handleSubmitHandler)} className="px-[1.5rem] bg-[#F7F8FD] min-h-[100vh] w-full sm:px-[7.125rem] pt-[2rem] sm:pt-[4rem] pb-[4rem] md:px-[10rem] xl:px-[28.125rem] lg:pt-[5rem]">
       <div className="flex items-center mb-[2.2rem]">
         <button
@@ -128,6 +130,7 @@ const NewFeedback = () => {
         </div>
       </div>
     </form>
+    </AnimatedLayout>
   );
 };
 

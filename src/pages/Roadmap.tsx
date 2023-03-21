@@ -3,6 +3,7 @@ import RoadmapPageLinks from "../components/RoadmapPageLinks";
 import { useState } from "react";
 import { useAppSelector } from "../types/hooks";
 import Suggestion from "../components/Suggestion";
+import AnimatedLayout from "./AnimatedLayout";
 import MobileRoadmap from "./MobileRoadmap";
 import MobileSuggestion from "../components/MobileSuggestion";
 import DesktopRoadmap from "./DesktopRoadmap";
@@ -18,6 +19,7 @@ const Roadmap = () => {
   };
 
   return (
+    <AnimatedLayout>
     <div className="md:px-[3rem] min-h-[100vh] bg-[#F7F8FD] md:py-[5rem] lg:px-[7rem] xl:px-[10rem]">
       <NavbarRoadmap />
       <div className="">
@@ -36,6 +38,7 @@ const Roadmap = () => {
         <DesktopRoadmap />
       </div>
     </div>
+    </AnimatedLayout>
   );
 };
 
