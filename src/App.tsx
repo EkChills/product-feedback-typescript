@@ -18,7 +18,7 @@ interface LocationState {
   const location = useLocation()
   
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <>
       <Routes location={location} key={location.pathname} >
         <Route path="/" element={<Suggestions />} />
         <Route path="/suggestions/:id" element={<FeedbackDetail />} />
@@ -27,7 +27,7 @@ interface LocationState {
         <Route path="road-map" element={<Roadmap />} />
       </Routes>
       <ToastContainer position="top-center" />
-      </AnimatePresence>
+      </>
   )
 }
 

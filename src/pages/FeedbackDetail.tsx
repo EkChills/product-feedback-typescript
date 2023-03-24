@@ -17,7 +17,6 @@ const FeedbackDetail = () => {
 
 
   return (
-    <AnimatedLayout>
     <div className="px-[1.5rem] bg-[#F7F8FD] sm:px-[2.5rem] pt-[2rem] sm:pt-[4rem] pb-[4rem] lg:px-[10rem] xl:px-[22.188rem] lg:pt-[5rem]">
       <div className="flex flex-col space-y-[1.5rem]">
         <div className="flex justify-between items-center">
@@ -43,7 +42,6 @@ const FeedbackDetail = () => {
         <AddComment id={id} />
       </div>
     </div>
-    </AnimatedLayout>
   );
 };
 

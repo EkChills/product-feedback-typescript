@@ -19,7 +19,6 @@ const Roadmap = () => {
   };
 
   return (
-    <AnimatedLayout>
     <div className="md:px-[3rem] min-h-[100vh] bg-[#F7F8FD] md:py-[5rem] lg:px-[7rem] xl:px-[10rem]">
       <NavbarRoadmap />
       <div className="">
@@ -38,7 +37,6 @@ const Roadmap = () => {
         <DesktopRoadmap />
       </div>
     </div>
-    </AnimatedLayout>
   );
 };
 
